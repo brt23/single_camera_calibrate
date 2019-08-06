@@ -2,9 +2,9 @@
 
 
 /*
- * @描述 方块标定版方块间交点的世界坐标
+ * @描述 方块标定版方块间角点的世界坐标
  * @参数 boardSize 标定板方块间角点的列数和行数cv::Size(width，height)
- * @返回 std::vector<cv::Point3f> 标定版方块间交点的世界坐标点集
+ * @返回 std::vector<cv::Point3f> 标定版方块间角点的世界坐标点集
  */
 std::vector<cv::Point3f> calcObpoint(cv::Size boardSize)
 {   
@@ -71,12 +71,12 @@ void singleCameraCalibration(const std::string imageDir, cv::Size boardSize, cv:
     // 读取图片目录下的图片的文件名
     std::vector<std::string> filePaths = getImagePathFromDir(imageDir, postfix);
 
-    // 定义标定板交点的世界坐标和图像坐标的容器
+    // 定义标定板角点的世界坐标和图像坐标的容器
     std::vector<cv::Point3f> objp = calcObpoint(boardSize);
     std::vector< std::vector<cv::Point3f> > objPoints;
     std::vector< std::vector<cv::Point2f> > imgPoints;
 
-    // 通过文件名依次读取图片，并检查图片中标定板交点，获取交点的坐标
+    // 通过文件名依次读取图片，并检查图片中标定板角点，获取角点的坐标
     int success_count = 0;
     int image_count = 0;
     int total_num = filePaths.size();
@@ -127,7 +127,7 @@ void singleCameraCalibration(const std::string imageDir, cv::Size boardSize, cv:
     cv::destroyWindow("calibrate");
     std::cout << "Calibrate calculating ..." << std::endl;
     
-    // 通过标定板交点的世界坐标点集和对应的图片坐标点集，计算出标定结果
+    // 通过标定板角点的世界坐标点集和对应的图片坐标点集，计算出标定结果
     cv::Mat internalMatrix, distMatrix;
     cv::Mat k1k2k3, p1p2;
     std::vector<cv::Mat> rvecs, tvecs;
